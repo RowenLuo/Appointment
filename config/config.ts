@@ -203,12 +203,14 @@ export default {
               icon: 'star',
               path: '/steerclassapp',
               component: './SteerClassApp',
+              authority: ['steer']
             },
             {
               name: '课程评价',
               icon: 'cloud',
               path: '/steerclassjudge',
               component: './SteerClassJudge',
+              authority: ['steer']
             },
             {
               component: './404',

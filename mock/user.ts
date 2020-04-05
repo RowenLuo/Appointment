@@ -99,7 +99,7 @@ export default {
       res.send({
         status: 'ok',
         type,
-        currentAuthority: 'user',
+        currentAuthority: 'steer',
       });
       return;
     }

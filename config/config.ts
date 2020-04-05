@@ -107,7 +107,7 @@ export default {
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          authority: ['admin', 'user'],
+          authority: ['admin', 'user', 'steer'],
           routes: [
             {
               path: '/',
@@ -197,6 +197,18 @@ export default {
               path: '/systemsteer',
               component: './SystemSteer',
               authority: ['admin'],
+            },
+            {
+              name: '课程预约',
+              icon: 'star',
+              path: '/steerclassapp',
+              component: './SteerClassApp',
+            },
+            {
+              name: '课程评价',
+              icon: 'cloud',
+              path: '/steerclassjudge',
+              component: './SteerClassJudge',
             },
             {
               component: './404',

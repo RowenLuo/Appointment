@@ -1,5 +1,5 @@
 import { DownOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Divider, Dropdown, Menu, message } from 'antd';
+import { Button, Divider, Dropdown, Menu, message, Switch } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
@@ -79,22 +79,8 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '用户名',
+      title: '指标类型',
       dataIndex: 'name',
-    },
-    {
-      title: '学院',
-      dataIndex: 'desc',
-    },
-    {
-      title: '角色',
-      dataIndex: 'owner',
-      sorter: true,
-    },
-    {
-      title: '创建日期',
-      dataIndex: 'createdAt',
-      sorter: true,
     },
     {
       title: '操作',
@@ -102,14 +88,18 @@ const TableList: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
+          <Switch checkedChildren="启用" unCheckedChildren="关闭" defaultChecked />
+          <Divider type="vertical" />
           <a
             onClick={() => {
               handleUpdateModalVisible(true);
               setStepFormValues(record);
             }}
           >
-            编辑 
+            编辑
           </a>
+          <Divider type="vertical" />
+          <a href="">查看</a>
           <Divider type="vertical" />
           <a href="">删除</a>
         </>
@@ -120,7 +110,7 @@ const TableList: React.FC<{}> = () => {
   return (
     <PageHeaderWrapper>
       <ProTable<TableListItem>
-        headerTitle="用户管理"
+        headerTitle="评价指标管理"
         actionRef={actionRef}
         rowKey="key"
         toolBarRender={(action, { selectedRows }) => [

@@ -5,32 +5,22 @@ import { TableListItem, TableListParams } from './data.d';
 
 // mock tableListDataSource
 let tableListDataSource: TableListItem[] = [];
-let task1 = {
+
+let task1: any = {
   key: 0,
-  name: `高等数学I`,
-  owner: '曲丽丽',
-  desc: '15060207',
-  updatedAt: "督导1",
-  createdAt: "王老师",
+  name: `教学氛围`,
 };
 
-let task2 = {
+let task2: any = {
   key: 0,
-  name: `高等数学II`,
-  owner: '曲丽丽',
-  desc: '15060207',
-  updatedAt: "督导1",
-  createdAt: "王老师",
+  name: `教学成果`,
 };
 
-let task3 = {
+let task3: any = {
   key: 0,
-  name: `线性代数`,
-  owner: '曲丽丽',
-  desc: '15060207',
-  updatedAt: "督导2",
-  createdAt: "田老师",
+  name: `教学方法`,
 };
+
 tableListDataSource.push(task1);
 tableListDataSource.push(task2);
 tableListDataSource.push(task3);
@@ -150,6 +140,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule_admin_steer': getRule,
+  'GET /api/rule_admin_judge': getRule,
   'POST /api/rule': postRule,
 };

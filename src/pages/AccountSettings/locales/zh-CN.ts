@@ -7,7 +7,7 @@ export default {
   'accountsettings.basic.change-avatar': '更换头像',
   'accountsettings.basic.email': '邮箱',
   'accountsettings.basic.email-message': '请输入您的邮箱!',
-  'accountsettings.basic.nickname': '昵称',
+  'accountsettings.basic.nickname': '姓名',
   'accountsettings.basic.nickname-message': '请输入您的昵称!',
   'accountsettings.basic.profile': '个人简介',
   'accountsettings.basic.profile-message': '请输入个人简介!',

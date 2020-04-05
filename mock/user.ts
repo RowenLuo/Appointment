@@ -7,7 +7,7 @@ function getFakeCaptcha(req: Request, res: Response) {
 export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
-    name: '王老师',
+    name: '蓝天白云',
     avatar: '/user.jpg',
     userid: '00000001',
     email: 'wang@qq.com',

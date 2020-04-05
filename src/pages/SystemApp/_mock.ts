@@ -6,26 +6,66 @@ import { TableListItem, TableListParams } from './data.d';
 // mock tableListDataSource
 let tableListDataSource: TableListItem[] = [];
 
-for (let i = 0; i < 10; i += 1) {
-  tableListDataSource.push({
-    key: i,
-    disabled: i % 6 === 0,
-    href: 'https://ant.design',
-    avatar: [
-      'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
-      'https://gw.alipayobjects.com/zos/rmsportal/udxAbMEhpwthVVcjLXik.png',
-    ][i % 2],
-    name: `TradeCode ${i}`,
-    title: `一个任务名称 ${i}`,
-    owner: '曲丽丽',
-    desc: '这是一段描述',
-    callNo: Math.floor(Math.random() * 1000),
-    status: Math.floor(Math.random() * 10) % 4,
-    updatedAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
-    createdAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
-    progress: Math.ceil(Math.random() * 100),
-  });
-}
+let task1: any = {
+  key: 0,
+  name: `高等数学I`,
+  title: ``,
+  owner: '2020/8/1',
+  desc: '2020/4/1',
+  status: 0,
+  updatedAt: '周一 14:00 - 16:00',
+  createdAt: '2020/4/1 - 2020/8-1',
+};
+
+let task2: any = {
+  key: 0,
+  name: `高等数学II`,
+  title: ``,
+  owner: '2020/8/1',
+  desc: '2020/4/1',
+  status: 1,
+  updatedAt: '周一 14:00 - 16:00',
+  createdAt: '2020/4/1 - 2020/8-1',
+};
+
+let task3: any = {
+  key: 0,
+  name: `线性代数`,
+  title: ``,
+  owner: '2020/8/1',
+  desc: '2020/4/1',
+  status: 0,
+  updatedAt: '周一 10:00 - 12:00',
+  createdAt: '2020/4/1 - 2020/8-1',
+};
+
+let task4: any = {
+  key: 0,
+  name: `操作系统`,
+  title: ``,
+  owner: '2020/8/1',
+  desc: '2020/4/1',
+  status: 1,
+  updatedAt: '周三 10:00 - 12:00',
+  createdAt: '2020/4/1 - 2020/8-1',
+};
+
+let task5: any = {
+  key: 0,
+  name: `计算机体系结构`,
+  title: ``,
+  owner: '2020/8/1',
+  desc: '2020/4/1',
+  status: 0,
+  updatedAt: '周一 14:00 - 16:00',
+  createdAt: '2020/4/1 - 2020/8-1',
+};
+
+tableListDataSource.push(task1);
+tableListDataSource.push(task2);
+tableListDataSource.push(task3);
+tableListDataSource.push(task4);
+tableListDataSource.push(task5);
 
 function getRule(req: Request, res: Response, u: string) {
   let url = u;
@@ -142,6 +182,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule': getRule,
+  'GET /api/rule_admin_systemapp': getRule,
   'POST /api/rule': postRule,
 };

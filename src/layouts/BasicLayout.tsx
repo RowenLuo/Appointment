@@ -61,23 +61,11 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright="2020"
+    copyright="2020 王洁"
     links={[
       {
-        key: 'RestTester',
-        title: 'RestTester',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
-      },
-      {
-        key: 'RestTester',
-        title: 'RestTester',
+        key: '',
+        title: '',
         href: 'https://pro.ant.design',
         blankTarget: true,
       },

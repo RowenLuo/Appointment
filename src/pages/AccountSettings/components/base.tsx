@@ -128,35 +128,6 @@ class BaseView extends Component<BaseViewProps> {
               <Input />
             </Form.Item>
             <Form.Item
-              name="profile"
-              label={formatMessage({ id: 'accountsettings.basic.profile' })}
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'accountsettings.basic.profile-message' }, {}),
-                },
-              ]}
-            >
-              <Input.TextArea
-                placeholder={formatMessage({ id: 'accountsettings.basic.profile-placeholder' })}
-                rows={4}
-              />
-            </Form.Item>
-            <Form.Item
-              name="country"
-              label={formatMessage({ id: 'accountsettings.basic.country' })}
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'accountsettings.basic.country-message' }, {}),
-                },
-              ]}
-            >
-              <Select style={{ maxWidth: 220 }}>
-                <Option value="China">中国</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item
               name="phone"
               label={formatMessage({ id: 'accountsettings.basic.phone' })}
               rules={[

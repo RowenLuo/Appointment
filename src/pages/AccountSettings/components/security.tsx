@@ -40,48 +40,6 @@ class SecurityView extends Component {
         </a>,
       ],
     },
-    {
-      title: formatMessage({ id: 'accountsettings.security.phone' }, {}),
-      description: `${formatMessage(
-        { id: 'accountsettings.security.phone-description' },
-        {},
-      )}：138****8293`,
-      actions: [
-        <a key="Modify">
-          <FormattedMessage id="accountsettings.security.modify" defaultMessage="Modify" />
-        </a>,
-      ],
-    },
-    {
-      title: formatMessage({ id: 'accountsettings.security.question' }, {}),
-      description: formatMessage({ id: 'accountsettings.security.question-description' }, {}),
-      actions: [
-        <a key="Set">
-          <FormattedMessage id="accountsettings.security.set" defaultMessage="Set" />
-        </a>,
-      ],
-    },
-    {
-      title: formatMessage({ id: 'accountsettings.security.email' }, {}),
-      description: `${formatMessage(
-        { id: 'accountsettings.security.email-description' },
-        {},
-      )}：ant***sign.com`,
-      actions: [
-        <a key="Modify">
-          <FormattedMessage id="accountsettings.security.modify" defaultMessage="Modify" />
-        </a>,
-      ],
-    },
-    {
-      title: formatMessage({ id: 'accountsettings.security.mfa' }, {}),
-      description: formatMessage({ id: 'accountsettings.security.mfa-description' }, {}),
-      actions: [
-        <a key="bind">
-          <FormattedMessage id="accountsettings.security.bind" defaultMessage="Bind" />
-        </a>,
-      ],
-    },
   ];
 
   render() {

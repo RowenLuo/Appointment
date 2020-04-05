@@ -79,34 +79,26 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '规则名称',
+      title: '课程名',
       dataIndex: 'name',
     },
     {
-      title: '描述',
+      title: '班级',
       dataIndex: 'desc',
     },
     {
-      title: '服务调用次数',
-      dataIndex: 'callNo',
+      title: '任课老师',
+      dataIndex: 'owner',
+    },
+    {
+      title: '日期',
+      dataIndex: 'createdAt',
       sorter: true,
-      renderText: (val: string) => `${val} 万`,
     },
     {
-      title: '状态',
-      dataIndex: 'status',
-      valueEnum: {
-        0: { text: '关闭', status: 'Default' },
-        1: { text: '运行中', status: 'Processing' },
-        2: { text: '已上线', status: 'Success' },
-        3: { text: '异常', status: 'Error' },
-      },
-    },
-    {
-      title: '上次调度时间',
+      title: '上课时间',
       dataIndex: 'updatedAt',
       sorter: true,
-      valueType: 'dateTime',
     },
     {
       title: '操作',
@@ -120,10 +112,10 @@ const TableList: React.FC<{}> = () => {
               setStepFormValues(record);
             }}
           >
-            配置
+            编辑
           </a>
           <Divider type="vertical" />
-          <a href="">订阅警报</a>
+          <a href="">删除</a>
         </>
       ),
     },
@@ -132,7 +124,7 @@ const TableList: React.FC<{}> = () => {
   return (
     <PageHeaderWrapper>
       <ProTable<TableListItem>
-        headerTitle="查询表格"
+        headerTitle="课程管理"
         actionRef={actionRef}
         rowKey="key"
         toolBarRender={(action, { selectedRows }) => [

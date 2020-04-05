@@ -82,14 +82,14 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem
-          name="desc"
+          name="owner"
           label="指标名称"
           rules={[{ required: true, message: '请输入规则名称！' }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem
-          name="desc"
+          name="title"
           label="指标名称"
           rules={[{ required: true, message: '请输入规则名称！' }]}
         >

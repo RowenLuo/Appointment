@@ -100,7 +100,7 @@ const TableList: React.FC<{}> = () => {
       dataIndex: 'status',
       valueEnum: {
         0: { text: '未预约', status: 'Default' },
-        1: { text: '已预约', status: 'Processing' },
+        1: { text: '预约中', status: 'Processing' },
       },
     },
     {

@@ -76,6 +76,27 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         </FormItem>
         <FormItem
           name="desc"
+          label="指标名称"
+          rules={[{ required: true, message: '请输入规则名称！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          name="desc"
+          label="指标名称"
+          rules={[{ required: true, message: '请输入规则名称！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          name="desc"
+          label="指标名称"
+          rules={[{ required: true, message: '请输入规则名称！' }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        {/* <FormItem
+          name="desc"
           label="学生回答问题频率"
         >
             <Rate />
@@ -85,7 +106,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           label="学生到课率"
         >
             <Rate />
-        </FormItem>
+        </FormItem> */}
       </>
     );
   };

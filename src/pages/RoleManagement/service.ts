@@ -7,6 +7,12 @@ export async function queryRule(params?: TableListParams) {
   });
 }
 
+export async function queryRole(params?: TableListParams) {
+  return request('/api/admin/role/list', {
+    params,
+  });
+}
+
 export async function removeRule(params: { key: number[] }) {
   return request('/api/rule', {
     method: 'POST',

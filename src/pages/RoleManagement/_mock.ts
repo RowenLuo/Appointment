@@ -7,41 +7,23 @@ import { TableListItem, TableListParams } from './data.d';
 let tableListDataSource: TableListItem[] = [];
 
 let task1 = {
-    key: 0,
-    disabled: true,
-    href: 'https://ant.design',
-    name: `老师`,
-    title: `一个任务名称`,
-    owner: '曲丽丽',
-    desc: 'teacher',
-    callNo: Math.floor(Math.random() * 1000),
-    status: Math.floor(Math.random() * 10) % 4,
-    progress: Math.ceil(Math.random() * 100),
-};
-let task2 = {
-    key: 0,
-    disabled: true,
-    href: 'https://ant.design',
-    name: `督导`,
-    title: `一个任务名称`,
-    owner: '曲丽丽',
-    desc: 'teacher',
-    callNo: Math.floor(Math.random() * 1000),
-    status: Math.floor(Math.random() * 10) % 4,
-    progress: Math.ceil(Math.random() * 100),
-};
-let task3 = {
-    key: 0,
-    disabled: true,
-    href: 'https://ant.design',
+    key: 1,
     name: `系统管理员`,
-    title: `一个任务名称`,
-    owner: '曲丽丽',
+    desc: 'admin',
+};
+
+let task2 = {
+    key: 2,
+    name: `老师`,
     desc: 'teacher',
-    callNo: Math.floor(Math.random() * 1000),
-    status: Math.floor(Math.random() * 10) % 4,
-    progress: Math.ceil(Math.random() * 100),
-}
+};
+
+let task3 = {
+    key: 3,
+    name: `督导`,
+    desc: 'steer',
+};
+
 tableListDataSource.push(task1);
 tableListDataSource.push(task2);
 tableListDataSource.push(task3);
@@ -161,6 +143,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule_admin_role': getRule,
+  'GET /api/admin/role/list': getRule,
   'POST /api/rule': postRule,
 };

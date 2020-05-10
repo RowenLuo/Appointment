@@ -111,7 +111,7 @@ export default {
           routes: [
             {
               path: '/',
-              redirect: '/myclass',
+              redirect: '/accountsettings',
             },
             {
               path: '/admin',
@@ -203,14 +203,14 @@ export default {
               icon: 'star',
               path: '/steerclassapp',
               component: './SteerClassApp',
-              authority: ['steer']
+              authority: ['steer'],
             },
             {
               name: '课程评价',
               icon: 'cloud',
               path: '/steerclassjudge',
               component: './SteerClassJudge',
-              authority: ['steer']
+              authority: ['steer'],
             },
             {
               component: './404',

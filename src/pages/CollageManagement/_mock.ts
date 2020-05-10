@@ -8,29 +8,15 @@ let tableListDataSource: TableListItem[] = [];
 let task1 = {
   key: 0,
   name: `光电学院`,
-  owner: '曲丽丽',
-  desc: '无',
-  callNo: Math.floor(Math.random() * 1000),
-  status: 1,
-  progress: Math.ceil(Math.random() * 100),
 }
 let task2 = {
-  key: 0,
+  key: 1,
   name: `计算机学院`,
-  owner: '曲丽丽',
-  desc: '无',
-  callNo: Math.floor(Math.random() * 1000),
-  status: 1,
-  progress: Math.ceil(Math.random() * 100),
 }
 let task3 = {
-  key: 0,
+  key: 2,
   name: `材化学院`,
   owner: '曲丽丽',
-  desc: '无',
-  callNo: Math.floor(Math.random() * 1000),
-  status: 1,
-  progress: Math.ceil(Math.random() * 100),
 }
 
 tableListDataSource.push(task1);
@@ -152,6 +138,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule_admin_coll': getRule,
+  'GET /api/admin/collage/list': getRule,
   'POST /api/rule': postRule,
 };

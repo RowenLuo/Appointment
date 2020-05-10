@@ -14,6 +14,12 @@ export interface TableListItem {
   progress: number;
 }
 
+export interface Role {
+  key: number;
+  name: string;
+  desc: string;
+}
+
 export interface TableListPagination {
   total: number;
   pageSize: number;

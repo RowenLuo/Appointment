@@ -1,24 +1,14 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { SystemSearchParams, SystemUser } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule', {
+export async function querySystemUsers(params?: SystemSearchParams) {
+  return request('/api/admin/user/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
-    data: {
-      ...params,
-      method: 'delete',
-    },
-  });
-}
-
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSystemUser(params: SystemUser) {
+  return request('/api/admin/user', {
     method: 'POST',
     data: {
       ...params,
@@ -27,12 +17,22 @@ export async function addRule(params: TableListParams) {
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function updateSystemUser(params: SystemUser) {
+  return request('/api/admin/user', {
+    method: 'PATCH',
     data: {
       ...params,
       method: 'update',
+    },
+  });
+}
+
+export async function removeSystemUser(params: { key?: any }) {
+  return request('/api/admin/user', {
+    method: 'DELETE',
+    data: {
+      ...params,
+      method: 'delete',
     },
   });
 }

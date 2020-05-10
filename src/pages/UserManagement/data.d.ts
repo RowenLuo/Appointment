@@ -14,6 +14,22 @@ export interface TableListItem {
   progress: number;
 }
 
+export interface SystemUser {
+  key?: number;
+  name?: string;
+  collage?: string;
+  role?: string;
+  createDate?: string;
+}
+
+export interface SystemSearchParams {
+  name?: string;
+  collage?: string;
+  role?: string;
+  pageSize?: number;
+  currentPage?: number;
+}
+
 export interface TableListPagination {
   total: number;
   pageSize: number;

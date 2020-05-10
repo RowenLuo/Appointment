@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
 
-import { TableListItem } from '../data.d';
+import { queryRole } from '../../RoleManagement/service';
+import { queryCollage } from '@/pages/CollageManagement/service';
+import { SystemUser } from '../data.d';
 
-export interface FormValueType extends Partial<TableListItem> {
+export interface FormValueType extends Partial<SystemUser> {
   target?: string;
   template?: string;
   type?: string;
@@ -15,13 +17,10 @@ export interface UpdateFormProps {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: FormValueType) => void;
   updateModalVisible: boolean;
-  values: Partial<TableListItem>;
+  values: Partial<SystemUser>;
 }
 const FormItem = Form.Item;
-const { Step } = Steps;
-const { TextArea } = Input;
 const { Option } = Select;
-const RadioGroup = Radio.Group;
 
 export interface UpdateFormState {
   formVals: FormValueType;
@@ -36,7 +35,8 @@ const formLayout = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     name: props.values.name,
-    desc: props.values.desc,
+    role: props.values.role,
+    collage: props.values.collage,
     key: props.values.key,
     target: '0',
     template: '0',
@@ -45,9 +45,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     frequency: 'month',
   });
 
-  const [currentStep, setCurrentStep] = useState<number>(0);
-
   const [form] = Form.useForm();
+
+  const [list, setList] = useState([]);
+  const [collage, setCollage] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -56,16 +57,22 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     values,
   } = props;
 
-  const forward = () => setCurrentStep(currentStep + 1);
+  const handleSearch = async () => {
+    const data = await queryRole();
+    setList(data.data);
+  }
 
-  const backward = () => setCurrentStep(currentStep - 1);
+  const handleSearchCollage = async () => {
+    const data = await queryCollage();
+    setCollage(data.data);
+  }
 
   const handleNext = async () => {
     const fieldsValue = await form.validateFields();
 
     setFormVals({ ...formVals, ...fieldsValue });
 
-    handleUpdate(formVals);
+    handleUpdate({ ...formVals, ...fieldsValue });
   };
 
   const renderContent = () => {
@@ -76,7 +83,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           wrapperCol={{ span: 15 }}
           label="用户名"
           name="name"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
@@ -84,26 +91,36 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="角色"
-          name="owner"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          name="role"
+          rules={[{ required: true }]}
         >
-          <Select defaultValue="0">
-            <Option value="0">老师</Option>
-            <Option value="1">督导</Option>
-            <Option value="1">系统管理员</Option>
+          <Select 
+           filterOption={false}
+           onFocus={handleSearch}
+          >
+            {
+              list.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
+              ))
+            }
           </Select>
         </FormItem>
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="desc"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          name="collage"
+          rules={[{ required: true }]}
         >
-          <Select defaultValue="0">
-            <Option value="0">光电学院</Option>
-            <Option value="1">计算机学院</Option>
-            <Option value="1">材化学院</Option>
+          <Select 
+           filterOption={false}
+           onFocus={handleSearchCollage}
+          >
+            {
+              collage.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
+              ))
+            }
           </Select>
         </FormItem>
       </>
@@ -115,7 +132,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <>
           <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
           <Button type="primary" onClick={() => handleNext()}>
-            完成
+            确定
           </Button>
         </>
       );
@@ -126,7 +143,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       width={640}
       bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
-      title="规则配置"
+      title="用户修改"
       visible={updateModalVisible}
       footer={renderFooter()}
       onCancel={() => handleUpdateModalVisible(false, values)}
@@ -141,7 +158,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           type: formVals.type,
           frequency: formVals.frequency,
           name: formVals.name,
-          desc: formVals.desc,
+          role: formVals.role,
+          collage: formVals.collage
         }}
       >
         {renderContent()}

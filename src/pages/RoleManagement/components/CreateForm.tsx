@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { desc: string }) => void;
+  onSubmit: (fieldsValue: { name: string, auth: string }) => void;
   onCancel: () => void;
 }
 
@@ -21,7 +21,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="新建角色"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => onCancel()}
@@ -30,9 +30,18 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
-          label="描述"
-          name="desc"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          label="角色"
+          name="name"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="权限"
+          name="auth"
+          rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
         </FormItem>

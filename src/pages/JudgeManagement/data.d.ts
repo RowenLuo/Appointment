@@ -20,6 +20,13 @@ export interface TableListPagination {
   current: number;
 }
 
+export interface SystemJudge {
+  key?: number;
+  name?: string;
+  pageSize?: number;
+  current?: number;
+}
+
 export interface TableListData {
   list: TableListItem[];
   pagination: Partial<TableListPagination>;

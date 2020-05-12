@@ -54,12 +54,10 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
                 <span className={styles.title}>预约督导评价服务平台</span>
               </Link>
             </div>
-            <div className={styles.desc} />
           </div>
-          <br />
-          <br />
-          <br />
-          {children}
+          <div className={styles.content}>
+            {children}
+          </div>
         </div>
         <DefaultFooter
           copyright="2020 王洁"

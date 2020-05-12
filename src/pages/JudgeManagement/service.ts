@@ -1,38 +1,35 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { SystemJudge } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_judge', {
+export async function querySystemJudge(params?: SystemJudge) {
+  return request('/api/admin/judge/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function removeSystemJudge(params: { key: any }) {
+  return request('/api/admin/judge', {
+    method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSystemJudge(params: SystemJudge) {
+  return request('/api/admin/judge', {
     method: 'POST',
     data: {
       ...params,
-      method: 'post',
     },
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function updateSystemJudge(params: SystemJudge) {
+  return request('/api/admin/judge', {
+    method: 'PATCH',
     data: {
       ...params,
-      method: 'update',
     },
   });
 }

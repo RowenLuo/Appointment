@@ -126,7 +126,7 @@ export default {
                   component: './UserManagement',
                 },
                 {
-                  name: '班级管理',
+                  name: '课程管理',
                   icon: 'eye',
                   path: '/admin/classmanagement',
                   component: './MlassManagement',
@@ -138,7 +138,7 @@ export default {
                   component: './RoleManagement',
                 },
                 {
-                  name: '课程管理',
+                  name: '班级管理',
                   icon: 'fire',
                   path: '/admin/systemclassmanagement',
                   component: './SystemClassManagement',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
 
 import { queryRole } from '../../RoleManagement/service';
-import { queryCollage } from '@/pages/CollageManagement/service';
+import { querySystemCollage } from '@/pages/CollageManagement/service';
 import { SystemUser } from '../data.d';
 
 export interface FormValueType extends Partial<SystemUser> {
@@ -63,7 +63,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   }
 
   const handleSearchCollage = async () => {
-    const data = await queryCollage();
+    const data = await querySystemCollage();
     setCollage(data.data);
   }
 

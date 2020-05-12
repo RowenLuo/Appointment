@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Form, Button, Rate, Input, Modal, Radio, Select, Steps } from 'antd';
+import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
 
-import { TableListItem } from '../data.d';
+import { SystemJudge } from '../data.d';
 
-export interface FormValueType extends Partial<TableListItem> {
+export interface FormValueType extends Partial<SystemJudge> {
   target?: string;
   template?: string;
   type?: string;
@@ -15,13 +15,10 @@ export interface UpdateFormProps {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: FormValueType) => void;
   updateModalVisible: boolean;
-  values: Partial<TableListItem>;
+  values: Partial<SystemJudge>;
 }
 const FormItem = Form.Item;
-const { Step } = Steps;
-const { TextArea } = Input;
 const { Option } = Select;
-const RadioGroup = Radio.Group;
 
 export interface UpdateFormState {
   formVals: FormValueType;
@@ -36,7 +33,6 @@ const formLayout = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     name: props.values.name,
-    desc: props.values.desc,
     key: props.values.key,
     target: '0',
     template: '0',
@@ -45,9 +41,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     frequency: 'month',
   });
 
-  const [currentStep, setCurrentStep] = useState<number>(0);
-
   const [form] = Form.useForm();
+
+  const [list, setList] = useState([]);
+  const [collage, setCollage] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -61,65 +58,34 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
 
     setFormVals({ ...formVals, ...fieldsValue });
 
-    handleUpdate(formVals);
+    handleUpdate({ ...formVals, ...fieldsValue });
   };
 
   const renderContent = () => {
     return (
       <>
         <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="指标名称"
           name="name"
-          label="指标类型"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
+          rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
-        <FormItem
-          name="desc"
-          label="指标名称"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
-        <FormItem
-          name="owner"
-          label="指标名称"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
-        <FormItem
-          name="title"
-          label="指标名称"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
-        {/* <FormItem
-          name="desc"
-          label="学生回答问题频率"
-        >
-            <Rate />
-        </FormItem>
-        <FormItem
-          name="desc"
-          label="学生到课率"
-        >
-            <Rate />
-        </FormItem> */}
       </>
     );
   };
 
   const renderFooter = () => {
-    return (
-      <>
-        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-        <Button type="primary" onClick={() => handleNext()}>
-          保存
-        </Button>
-      </>
-    );
+      return (
+        <>
+          <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
+          <Button type="primary" onClick={() => handleNext()}>
+            确定
+          </Button>
+        </>
+      );
   };
 
   return (
@@ -127,7 +93,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       width={640}
       bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
-      title="指标查看"
+      title="指标修改"
       visible={updateModalVisible}
       footer={renderFooter()}
       onCancel={() => handleUpdateModalVisible(false, values)}
@@ -142,7 +108,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           type: formVals.type,
           frequency: formVals.frequency,
           name: formVals.name,
-          desc: formVals.desc,
         }}
       >
         {renderContent()}

@@ -1,44 +1,35 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { TableListParams, SystemCollage } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_coll', {
-    params,
-  });
-}
-
-export async function queryCollage(params?: TableListParams) {
+export async function querySystemCollage(params?: SystemCollage) {
   return request('/api/admin/collage/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function removeSystemCollage(params: { key: any }) {
+  return request('/api/admin/collage', {
+    method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSystemCollage(params: SystemCollage) {
+  return request('/api/admin/collage', {
     method: 'POST',
     data: {
       ...params,
-      method: 'post',
     },
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function updateSystemCollage(params: SystemCollage) {
+  return request('/api/admin/collage', {
+    method: 'PATCH',
     data: {
       ...params,
-      method: 'update',
     },
   });
 }

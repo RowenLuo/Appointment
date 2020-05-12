@@ -1,41 +1,33 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { TableListParams, SystemRole } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_role', {
-    params,
-  });
-}
-
-export async function queryRole(params?: TableListParams) {
+export async function queryRole(params?: SystemRole) {
   return request('/api/admin/role/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function removeRole(params: { key: any }) {
+  return request('/api/admin/role', {
+    method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addRole(params: SystemRole) {
+  return request('/api/admin/role', {
     method: 'POST',
     data: {
       ...params,
-      method: 'post',
     },
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function updateRole(params: SystemRole) {
+  return request('/api/admin/role', {
+    method: 'PATCH',
     data: {
       ...params,
       method: 'update',

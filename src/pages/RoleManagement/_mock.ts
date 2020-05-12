@@ -1,27 +1,27 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
 import { parse } from 'url';
-import { TableListItem, TableListParams } from './data.d';
+import { TableListItem, Role } from './data.d';
 
 // mock tableListDataSource
-let tableListDataSource: TableListItem[] = [];
+let tableListDataSource: Role[] = [];
 
-let task1 = {
+let task1: Role = {
     key: 1,
     name: `系统管理员`,
-    desc: 'admin',
+    auth: 'admin',
 };
 
 let task2 = {
     key: 2,
     name: `老师`,
-    desc: 'teacher',
+    auth: 'teacher',
 };
 
 let task3 = {
     key: 3,
     name: `督导`,
-    desc: 'steer',
+    auth: 'steer',
 };
 
 tableListDataSource.push(task1);
@@ -35,7 +35,7 @@ function getRule(req: Request, res: Response, u: string) {
     url = req.url;
   }
 
-  const params = (parse(url, true).query as unknown) as TableListParams;
+  const params = (parse(url, true).query as unknown) as Role;
 
   let dataSource = tableListDataSource;
 

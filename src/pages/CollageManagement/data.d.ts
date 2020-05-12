@@ -14,6 +14,14 @@ export interface TableListItem {
   progress: number;
 }
 
+export interface SystemCollage {
+  key?: number;
+  name?: string;
+  desc?: string;
+  pageSize?: number;
+  current?: number;
+}
+
 export interface TableListPagination {
   total: number;
   pageSize: number;

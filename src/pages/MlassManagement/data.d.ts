@@ -20,6 +20,16 @@ export interface TableListPagination {
   current: number;
 }
 
+export interface SystemCourse {
+    key?: number;
+    name?: string;
+    collage?: string;
+    class?: string;
+    teacher?: string;
+    pageSize?: number;
+    current?: number;
+}
+
 export interface TableListData {
   list: TableListItem[];
   pagination: Partial<TableListPagination>;

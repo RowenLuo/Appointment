@@ -5,8 +5,8 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
-import { TableListItem } from './data.d';
-import { queryRule, updateRule, addRule, removeRule } from './service';
+import { SystemCollage } from './data.d';
+import { querySystemCollage, removeSystemCollage, addSystemCollage, updateSystemCollage } from './service';
 
 /**
  * 添加节点
@@ -15,8 +15,9 @@ import { queryRule, updateRule, addRule, removeRule } from './service';
 const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
-    await addRule({
-      desc: fields.desc,
+    await addSystemCollage({
+      name: fields.name,
+      desc: fields.desc
     });
     hide();
     message.success('添加成功');
@@ -33,20 +34,20 @@ const handleAdd = async (fields: FormValueType) => {
  * @param fields
  */
 const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('正在配置');
+  const hide = message.loading('正在更新');
   try {
-    await updateRule({
-      name: fields.name,
-      desc: fields.desc,
+    await updateSystemCollage({
       key: fields.key,
+      name: fields.name,
+      desc: fields.desc
     });
     hide();
 
-    message.success('配置成功');
+    message.success('更新成功');
     return true;
   } catch (error) {
     hide();
-    message.error('配置失败请重试！');
+    message.error('更新失败请重试！');
     return false;
   }
 };
@@ -55,15 +56,32 @@ const handleUpdate = async (fields: FormValueType) => {
  *  删除节点
  * @param selectedRows
  */
-const handleRemove = async (selectedRows: TableListItem[]) => {
+const handleRemove = async (selectedRows: SystemCollage[]) => {
   const hide = message.loading('正在删除');
   if (!selectedRows) return true;
   try {
-    await removeRule({
+    await removeSystemCollage({
       key: selectedRows.map((row) => row.key),
     });
     hide();
     message.success('删除成功，即将刷新');
+    return true;
+  } catch (error) {
+    hide();
+    message.error('删除失败，请重试');
+    return false;
+  }
+};
+
+const handleRemoveItem = async (selectedRow: SystemCollage) => {
+  const hide = message.loading('正在删除');
+  if (!selectedRow) return true;
+  try {
+    await removeSystemCollage({
+      key: selectedRow.key
+    });
+    hide();
+    message.success('删除成功');
     return true;
   } catch (error) {
     hide();
@@ -77,14 +95,15 @@ const TableList: React.FC<{}> = () => {
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: ProColumns<SystemCollage>[] = [
     {
-      title: '学院名',
+      title: '用户名',
       dataIndex: 'name',
     },
     {
-      title: '备注',
+      title: '描述',
       dataIndex: 'desc',
+      sorter: true,
     },
     {
       title: '操作',
@@ -98,10 +117,18 @@ const TableList: React.FC<{}> = () => {
               setStepFormValues(record);
             }}
           >
-            编辑
+            编辑 
           </a>
           <Divider type="vertical" />
-          <a href="">删除</a>
+          <a onClick={() => {
+            handleRemoveItem(record);
+            if (actionRef.current) {
+                  actionRef.current.reload();
+                }
+            }}
+          >
+            删除
+          </a>
         </>
       ),
     },
@@ -109,7 +136,7 @@ const TableList: React.FC<{}> = () => {
 
   return (
     <PageHeaderWrapper>
-      <ProTable<TableListItem>
+      <ProTable<SystemCollage>
         headerTitle="学院管理"
         actionRef={actionRef}
         rowKey="key"
@@ -130,7 +157,6 @@ const TableList: React.FC<{}> = () => {
                   selectedKeys={[]}
                 >
                   <Menu.Item key="remove">批量删除</Menu.Item>
-                  <Menu.Item key="approval">批量审批</Menu.Item>
                 </Menu>
               }
             >
@@ -140,7 +166,7 @@ const TableList: React.FC<{}> = () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => queryRule(params)}
+        request={(params) => querySystemCollage(params)}
         columns={columns}
         rowSelection={{}}
       />

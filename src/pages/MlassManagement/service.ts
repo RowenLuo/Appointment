@@ -1,24 +1,23 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { SystemCourse } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_class', {
+export async function querySysteCourse(params?: SystemCourse) {
+  return request('/api/admin/course/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function removeSysteCourse(params: { key: any }) {
+  return request('/api/admin/course', {
+    method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSysteCourse(params: SystemCourse) {
+  return request('/api/admin/course', {
     method: 'POST',
     data: {
       ...params,
@@ -27,8 +26,8 @@ export async function addRule(params: TableListParams) {
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function updateSysteCourse(params: SystemCourse) {
+  return request('/api/admin/course', {
     method: 'POST',
     data: {
       ...params,

@@ -1,38 +1,35 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { TableListParams, SystemClass } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_systemclass', {
+export async function querySystemClass(params?: SystemClass) {
+  return request('/api/admin/class/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function removeSystemClass(params: { key: any }) {
+  return request('/api/admin/class', {
+    method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSystemClass(params: SystemClass) {
+  return request('/api/admin/class', {
     method: 'POST',
     data: {
       ...params,
-      method: 'post',
     },
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
-    method: 'POST',
+export async function updateSystemClass(params: SystemClass) {
+  return request('/api/admin/class', {
+    method: 'PATCH',
     data: {
       ...params,
-      method: 'update',
     },
   });
 }

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
 
-import { TableListItem } from '../data.d';
+import { querySystemClass } from '../../SystemClassManagement/service';
+import { querySystemCollage } from '@/pages/CollageManagement/service';
+import { querySystemUsers } from '@/pages/UserManagement/service';
+import { SystemCourse } from '../data.d';
 
-export interface FormValueType extends Partial<TableListItem> {
+export interface FormValueType extends Partial<SystemCourse> {
   target?: string;
   template?: string;
   type?: string;
@@ -15,13 +18,10 @@ export interface UpdateFormProps {
   onCancel: (flag?: boolean, formVals?: FormValueType) => void;
   onSubmit: (values: FormValueType) => void;
   updateModalVisible: boolean;
-  values: Partial<TableListItem>;
+  values: Partial<SystemCourse>;
 }
 const FormItem = Form.Item;
-const { Step } = Steps;
-const { TextArea } = Input;
 const { Option } = Select;
-const RadioGroup = Radio.Group;
 
 export interface UpdateFormState {
   formVals: FormValueType;
@@ -36,7 +36,9 @@ const formLayout = {
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     name: props.values.name,
-    desc: props.values.desc,
+    collage: props.values.collage,
+    class: props.values.class,
+    teacher: props.values.teacher,
     key: props.values.key,
     target: '0',
     template: '0',
@@ -45,9 +47,11 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     frequency: 'month',
   });
 
-  const [currentStep, setCurrentStep] = useState<number>(0);
-
   const [form] = Form.useForm();
+
+  const [list, setList] = useState([]);
+  const [collage, setCollage] = useState([]);
+  const [user, setUser] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -56,126 +60,108 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
     values,
   } = props;
 
-  const forward = () => setCurrentStep(currentStep + 1);
+  const handleSearch = async () => {
+    const data = await querySystemClass();
+    setList(data.data);
+  }
 
-  const backward = () => setCurrentStep(currentStep - 1);
+  const handleSearchCollage = async () => {
+    const data = await querySystemCollage();
+    setCollage(data.data);
+  }
+
+  const handleSearchUser = async () => {
+    const data = await querySystemUsers();
+    setCollage(data.data);
+  }
 
   const handleNext = async () => {
     const fieldsValue = await form.validateFields();
 
     setFormVals({ ...formVals, ...fieldsValue });
 
-    if (currentStep < 2) {
-      forward();
-    } else {
-      handleUpdate(formVals);
-    }
+    handleUpdate({ ...formVals, ...fieldsValue });
   };
 
   const renderContent = () => {
-    if (currentStep === 1) {
-      return (
-        <>
-          <FormItem name="target" label="监控对象">
-            <Select style={{ width: '100%' }}>
-              <Option value="0">表一</Option>
-              <Option value="1">表二</Option>
-            </Select>
-          </FormItem>
-          <FormItem name="template" label="规则模板">
-            <Select style={{ width: '100%' }}>
-              <Option value="0">规则模板一</Option>
-              <Option value="1">规则模板二</Option>
-            </Select>
-          </FormItem>
-          <FormItem name="type" label="规则类型">
-            <RadioGroup>
-              <Radio value="0">强</Radio>
-              <Radio value="1">弱</Radio>
-            </RadioGroup>
-          </FormItem>
-        </>
-      );
-    }
-    if (currentStep === 2) {
-      return (
-        <>
-          <FormItem
-            name="time"
-            label="开始时间"
-            rules={[{ required: true, message: '请选择开始时间！' }]}
-          >
-            <DatePicker
-              style={{ width: '100%' }}
-              showTime
-              format="YYYY-MM-DD HH:mm:ss"
-              placeholder="选择开始时间"
-            />
-          </FormItem>
-          <FormItem name="frequency" label="调度周期">
-            <Select style={{ width: '100%' }}>
-              <Option value="month">月</Option>
-              <Option value="week">周</Option>
-            </Select>
-          </FormItem>
-        </>
-      );
-    }
     return (
       <>
         <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="课程名"
           name="name"
-          label="规则名称"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
+          rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem
-          name="desc"
-          label="规则描述"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="学院"
+          name="collage"
+          rules={[{ required: true }]}
         >
-          <TextArea rows={4} placeholder="请输入至少五个字符" />
+          <Select 
+           filterOption={false}
+           onFocus={handleSearchCollage}
+          >
+            {
+              list.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
+              ))
+            }
+          </Select>
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="班级"
+          name="class"
+          rules={[{ required: true }]}
+        >
+          <Select 
+           filterOption={false}
+           onFocus={handleSearch}
+          >
+            {
+              collage.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
+              ))
+            }
+          </Select>
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="老师"
+          name="teacher"
+          rules={[{ required: true }]}
+        >
+          <Select 
+           filterOption={false}
+           onFocus={handleSearchUser}
+          >
+            {
+              collage.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
+              ))
+            }
+          </Select>
         </FormItem>
       </>
     );
   };
 
   const renderFooter = () => {
-    if (currentStep === 1) {
       return (
         <>
-          <Button style={{ float: 'left' }} onClick={backward}>
-            上一步
-          </Button>
           <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
           <Button type="primary" onClick={() => handleNext()}>
-            下一步
+            确定
           </Button>
         </>
       );
-    }
-    if (currentStep === 2) {
-      return (
-        <>
-          <Button style={{ float: 'left' }} onClick={backward}>
-            上一步
-          </Button>
-          <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-          <Button type="primary" onClick={() => handleNext()}>
-            完成
-          </Button>
-        </>
-      );
-    }
-    return (
-      <>
-        <Button onClick={() => handleUpdateModalVisible(false, values)}>取消</Button>
-        <Button type="primary" onClick={() => handleNext()}>
-          下一步
-        </Button>
-      </>
-    );
   };
 
   return (
@@ -183,17 +169,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       width={640}
       bodyStyle={{ padding: '32px 40px 48px' }}
       destroyOnClose
-      title="规则配置"
+      title="课程修改"
       visible={updateModalVisible}
       footer={renderFooter()}
       onCancel={() => handleUpdateModalVisible(false, values)}
       afterClose={() => handleUpdateModalVisible()}
     >
-      <Steps style={{ marginBottom: 28 }} size="small" current={currentStep}>
-        <Step title="基本信息" />
-        <Step title="配置规则属性" />
-        <Step title="设定调度周期" />
-      </Steps>
       <Form
         {...formLayout}
         form={form}
@@ -203,7 +184,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           type: formVals.type,
           frequency: formVals.frequency,
           name: formVals.name,
-          desc: formVals.desc,
+          collage: formVals.collage,
+          class: formVals.class,
+          teacher: formVals.teacher
         }}
       >
         {renderContent()}

@@ -15,9 +15,9 @@ export interface TableListItem {
 }
 
 export interface SystemCollage {
-  key?: number;
-  name?: string;
-  desc?: string;
+  collegeId?: number;
+  collegeName?: string;
+  collegeDesc?: string;
   pageSize?: number;
   current?: number;
 }

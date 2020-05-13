@@ -1,14 +1,14 @@
 import request from '@/utils/request';
-import { TableListParams } from './data.d';
+import { TableListParams, SystemAppoinment } from './data.d';
 
-export async function queryRule(params?: TableListParams) {
-  return request('/api/rule_admin_systemapp', {
+export async function querySystemAppointment(params?: SystemAppoinment) {
+  return request('/api/admin/appointment/list', {
     params,
   });
 }
 
-export async function removeRule(params: { key: number[] }) {
-  return request('/api/rule', {
+export async function removeSystemAppointment(params: { appointmentId: any }) {
+  return request('/api/admin/appointment', {
     method: 'POST',
     data: {
       ...params,
@@ -17,8 +17,8 @@ export async function removeRule(params: { key: number[] }) {
   });
 }
 
-export async function addRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function addSystemAppointment(params: SystemAppoinment) {
+  return request('/api/admin/appointment', {
     method: 'POST',
     data: {
       ...params,
@@ -27,8 +27,8 @@ export async function addRule(params: TableListParams) {
   });
 }
 
-export async function updateRule(params: TableListParams) {
-  return request('/api/rule', {
+export async function updateSystemAppointment(params: SystemAppoinment) {
+  return request('/api/admin/appointment', {
     method: 'POST',
     data: {
       ...params,

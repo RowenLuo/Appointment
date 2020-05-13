@@ -32,8 +32,9 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    name: props.values.name,
-    desc: props.values.desc
+    collegeId: props.values.collegeId,
+    collegeName: props.values.collegeName,
+    collegeDesc: props.values.collegeDesc
   });
 
   const [form] = Form.useForm();
@@ -60,7 +61,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院名"
-          name="name"
+          name="collegeName"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -69,7 +70,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="描述"
-          name="role"
+          name="collegeDesc"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -108,8 +109,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          name: formVals.name,
-          desc: formVals.desc
+          collegeName: formVals.collegeName,
+          collegeDesc: formVals.collegeDesc
         }}
       >
         {renderContent()}

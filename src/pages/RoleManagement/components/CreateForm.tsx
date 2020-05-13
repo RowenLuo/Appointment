@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { name: string, auth: string }) => void;
+  onSubmit: (fieldsValue: { roleName: string, description: string }) => void;
   onCancel: () => void;
 }
 
@@ -31,7 +31,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="角色"
-          name="name"
+          name="roleName"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -40,7 +40,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="权限"
-          name="auth"
+          name="description"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />

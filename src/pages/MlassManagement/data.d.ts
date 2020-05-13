@@ -21,11 +21,19 @@ export interface TableListPagination {
 }
 
 export interface SystemCourse {
-    key?: number;
-    name?: string;
-    collage?: string;
-    class?: string;
-    teacher?: string;
+    courseId?: number;
+    courseName?: string;
+    collegeId?: string;
+    collegeName?: string;
+    classId?: string;
+    classNumber?: string;
+    teacherId?: string;
+    teacherName?: string;
+    startDate?: Date;
+    endDate?: Date;
+    week?: string;
+    startTime?: string;
+    endTime?: string;
     pageSize?: number;
     current?: number;
 }

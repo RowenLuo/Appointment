@@ -16,11 +16,12 @@ import ColumnGroup from 'antd/es/table/ColumnGroup';
 const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
+    console.log(fields);
     await addSysteCourse({
-      name: fields.name,
-      collage: fields.collage,
-      class: fields.class,
-      teacher: fields.teacher
+      courseName: fields.courseName,
+      collegeId: fields.collegeId,
+      classId: fields.classId,
+      teacherId: fields.teacherId
     });
     hide();
     message.success('添加成功');
@@ -40,11 +41,11 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
     await updateSysteCourse({
-      key: fields.key,
-      name: fields.name,
-      collage: fields.collage,
-      class: fields.class,
-      teacher: fields.teacher
+      courseId: fields.courseId,
+      courseName: fields.courseName,
+      collegeId: fields.collegeId,
+      classId: fields.classId,
+      teacherId: fields.teacherId
     });
     hide();
 
@@ -66,7 +67,7 @@ const handleRemove = async (selectedRows: SystemCourse[]) => {
   if (!selectedRows) return true;
   try {
     await removeSysteCourse({
-      key: selectedRows.map((row) => row.key),
+      courseId: selectedRows.map((row) => row.courseId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -83,7 +84,7 @@ const handleRemoveItem = async (selectedRow: SystemCourse) => {
   if (!selectedRow) return true;
   try {
     await removeSysteCourse({
-      key: selectedRow.key
+      courseId: selectedRow.courseId
     });
     hide();
     message.success('删除成功');
@@ -103,20 +104,20 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<SystemCourse>[] = [
     {
       title: '课程名',
-      dataIndex: 'name',
+      dataIndex: 'courseName',
     },
     {
       title: '学院',
-      dataIndex: 'collage',
+      dataIndex: 'collegeName',
     },
     {
       title: '班级',
-      dataIndex: 'class',
+      dataIndex: 'className',
       sorter: true,
     },
     {
       title: '老师',
-      dataIndex: 'teacher',
+      dataIndex: 'teacherName',
       sorter: true,
       hideInSearch: true
     },

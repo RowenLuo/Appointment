@@ -16,8 +16,8 @@ const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
     await addSystemClass({
-      name: fields.name,
-      collage: fields.collage
+      classNumber: fields.classNumber,
+      collegeId: fields.collegeId
     });
     hide();
     message.success('添加成功');
@@ -37,9 +37,9 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
     await updateSystemClass({
-      name: fields.name,
-      collage: fields.collage,
-      key: fields.key,
+      classNumber: fields.classNumber,
+      collegeId: fields.collegeId,
+      classId: fields.classId,
     });
     hide();
 
@@ -61,7 +61,7 @@ const handleRemove = async (selectedRows: SystemClass[]) => {
   if (!selectedRows) return true;
   try {
     await removeSystemClass({
-      key: selectedRows.map((row) => row.key),
+      classId: selectedRows.map((row) => row.classId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -78,7 +78,7 @@ const handleRemoveItem = async (selectedRow: SystemClass) => {
   if (!selectedRow) return true;
   try {
     await removeSystemClass({
-      key: selectedRow.key
+      classId: selectedRow.classId
     });
     hide();
     message.success('删除成功');
@@ -95,14 +95,14 @@ const TableList: React.FC<{}> = () => {
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
   const [stepFormValues, setStepFormValues] = useState({});
   const actionRef = useRef<ActionType>();
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: ProColumns<SystemClass>[] = [
     {
       title: '班级名',
-      dataIndex: 'name',
+      dataIndex: 'classNumber',
     },
     {
       title: '学院',
-      dataIndex: 'collage',
+      dataIndex: 'collegeName',
       sorter: true,
     },
     {
@@ -136,7 +136,7 @@ const TableList: React.FC<{}> = () => {
 
   return (
     <PageHeaderWrapper>
-      <ProTable<TableListItem>
+      <ProTable<SystemClass>
         headerTitle="班级管理"
         actionRef={actionRef}
         rowKey="key"

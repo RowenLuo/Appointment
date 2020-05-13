@@ -7,7 +7,7 @@ export async function querySysteCourse(params?: SystemCourse) {
   });
 }
 
-export async function removeSysteCourse(params: { key: any }) {
+export async function removeSysteCourse(params: { courseId: any }) {
   return request('/api/admin/course', {
     method: 'DELETE',
     data: {

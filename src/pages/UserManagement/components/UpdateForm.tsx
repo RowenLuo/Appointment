@@ -34,9 +34,10 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
+    phone: props.values.phone,
     name: props.values.name,
-    role: props.values.role,
-    collage: props.values.collage,
+    roleId: props.values.roleId,
+    collegeId: props.values.collegeId,
     key: props.values.key,
     target: '0',
     template: '0',
@@ -48,7 +49,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
 
   const [list, setList] = useState([]);
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -81,6 +82,15 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
+          label="手机号"
+          name="phone"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
           label="用户名"
           name="name"
           rules={[{ required: true }]}
@@ -91,7 +101,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="角色"
-          name="role"
+          name="roleId"
           rules={[{ required: true }]}
         >
           <Select 
@@ -100,7 +110,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           >
             {
               list.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+                <Option key={index} value={item.roleId}>{item.roleName}</Option>
               ))
             }
           </Select>
@@ -109,7 +119,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="collage"
+          name="collegeId"
           rules={[{ required: true }]}
         >
           <Select 
@@ -117,8 +127,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearchCollage}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
           </Select>
@@ -157,9 +167,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
+          phone: formVals.phone,
           name: formVals.name,
-          role: formVals.role,
-          collage: formVals.collage
+          roleName: formVals.roleName,
+          collegeName: formVals.collegeName
         }}
       >
         {renderContent()}

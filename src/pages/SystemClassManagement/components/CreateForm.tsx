@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
-import { queryCollage } from '@/pages/CollageManagement/service';
+import { querySystemCollage } from '@/pages/CollageManagement/service';
 
 const FormItem = Form.Item;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { name: string, collage: string }) => void;
+  onSubmit: (fieldsValue: { classNumber: string, collegeId: string }) => void;
   onCancel: () => void;
 }
 
@@ -14,7 +14,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   const [form] = Form.useForm();
   const { Option } = Select;
 
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
  
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
   const okHandle = async () => {
@@ -24,7 +24,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   };
 
   const handleSearchCollage = async () => {
-    const data = await queryCollage();
+    const data = await querySystemCollage();
     setCollage(data.data);
   } 
   return (
@@ -40,7 +40,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="班级名"
-          name="name"
+          name="classNumber"
           rules={[{ required: true}]}
         >
           <Input placeholder="请输入" />
@@ -49,7 +49,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="collage"
+          name="collegeId"
           rules={[{ required: true, message: "请选择用户所在学院" }]}
         >
           <Select 
@@ -58,8 +58,8 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearchCollage}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
           </Select>

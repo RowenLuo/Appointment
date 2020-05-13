@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Input, Modal, Select } from 'antd';
 import { queryRole } from '../../RoleManagement/service';
-import { queryCollage } from '@/pages/CollageManagement/service';
+import { querySystemCollage } from '@/pages/CollageManagement/service';
 
 const FormItem = Form.Item;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { name: string, role: string, collage: string }) => void;
+  onSubmit: (fieldsValue: { name: string, phone: string; roleId: string, collegeId: string }) => void;
   onCancel: () => void;
 }
 
@@ -16,7 +16,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   const { Option } = Select;
 
   const [list, setList] = useState([]);
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
   const okHandle = async () => {
@@ -31,7 +31,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   }
 
   const handleSearchCollage = async () => {
-    const data = await queryCollage();
+    const data = await querySystemCollage();
     setCollage(data.data);
   }
 
@@ -47,6 +47,15 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
+          label="手机号"
+          name="phone"
+          rules={[{ required: true, message: "请输入手机号" }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
           label="用户名"
           name="name"
           rules={[{ required: true, message: "请输入用户名" }]}
@@ -57,7 +66,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="角色"
-          name="role"
+          name="roleId"
           rules={[{ required: true, message: "请选择用户角色" }]}
         >
           <Select 
@@ -67,7 +76,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           >
             {
               list.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+                <Option key={index} value={item.roleId}>{item.roleName}</Option>
               ))
             }
           </Select>
@@ -76,7 +85,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="collage"
+          name="collegeId"
           rules={[{ required: true, message: "请选择用户所在学院" }]}
         >
           <Select 
@@ -85,8 +94,8 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearchCollage}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
           </Select>

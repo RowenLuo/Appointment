@@ -7,21 +7,21 @@ import { TableListItem, Role } from './data.d';
 let tableListDataSource: Role[] = [];
 
 let task1: Role = {
-    key: 1,
-    name: `系统管理员`,
-    auth: 'admin',
+    roleId: 1,
+    roleName: `系统管理员`,
+    description: 'admin',
 };
 
 let task2 = {
-    key: 2,
-    name: `老师`,
-    auth: 'teacher',
+    roleId: 2,
+    roleName: `老师`,
+    description: 'teacher',
 };
 
 let task3 = {
-    key: 3,
-    name: `督导`,
-    auth: 'steer',
+    roleId: 3,
+    roleName: `督导`,
+    description: 'steer',
 };
 
 tableListDataSource.push(task1);

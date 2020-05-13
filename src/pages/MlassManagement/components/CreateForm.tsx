@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Form, Input, Modal, Select } from 'antd';
+import { Form, Input, Modal, Select, Checkbox, Row, Col, DatePicker, TimePicker } from 'antd';
 import { querySystemClass } from '@/pages/SystemClassManagement/service';
 import { querySystemCollage } from '@/pages/CollageManagement/service';
 
 const FormItem = Form.Item;
+const { RangePicker } = DatePicker;
+const TimeRangePicker = TimePicker.RangePicker;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { name: string, collage: string, class: string }) => void;
+  onSubmit: (fieldsValue: { courseName: string, collegeId: string, classId: string, teacherId: string, date: string, week: string, time: string }) => void;
   onCancel: () => void;
 }
 
@@ -16,7 +18,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   const { Option } = Select;
 
   const [list, setList] = useState([]);
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
   const okHandle = async () => {
@@ -27,12 +29,29 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const handleSearch = async () => {
     const data = await querySystemClass();
-    setList(data.data);
+    setList(data.datj);
   }
 
-  const handleSearchCollage = async () => {
+  const handleSearchCollege = async () => {
     const data = await querySystemCollage();
     setCollage(data.data);
+  }
+
+  const onWeekChange = (checkValue) => {
+  }
+
+  const onMonday1Change = (value) => {
+    form.setFieldsValue({ weekTime: "周一: lalala" });
+  }
+
+  const onMonday2Change = (value) => {
+    form.setFieldsValue({ weekTime: "周一: lalala" });
+  }
+
+  const onFinish = (value) => {
+    console.log(value);
+    form.setFieldsValue({nn: "123"});
+    console.log(value);
   }
 
   return (
@@ -43,12 +62,12 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
       onOk={okHandle}
       onCancel={() => onCancel()}
     >
-      <Form form={form}>
+      <Form form={form} onFinish={onFinish}>
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="课程名"
-          name="name"
+          name="courseName"
           rules={[{ required: true, message: "请输入用户名" }]}
         >
           <Input placeholder="请输入" />
@@ -57,17 +76,17 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="collage"
-          rules={[{ required: true, message: "请选择学院" }]}
+          name="collegeId"
+          rules={[{ required: false, message: "请选择学院" }]}
         >
           <Select 
            placeholder="请选择"
            filterOption={false}
-           onFocus={handleSearchCollage}
+           onFocus={handleSearchCollege}
           >
             {
               list.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+                <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
           </Select>
@@ -77,7 +96,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           wrapperCol={{ span: 15 }}
           label="班级"
           name="class"
-          rules={[{ required: true, message: "请选择班级" }]}
+          rules={[{ required: false, message: "请选择班级" }]}
         >
           <Select 
            placeholder="请选择"
@@ -85,8 +104,8 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearch}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.classId}>{item.className}</Option>
               ))
             }
           </Select>
@@ -94,9 +113,9 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
-          label="班级"
-          name="class"
-          rules={[{ required: true, message: "请选择班级" }]}
+          label="老师"
+          name="teacherId"
+          rules={[{ required: false, message: "请选择老师" }]}
         >
           <Select 
            placeholder="请选择"
@@ -104,11 +123,56 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearch}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.teacherId}>{item.teacherName}</Option>
               ))
             }
           </Select>
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="起始日期"
+          name="date"
+          rules={[{ required: true, message: "请选择起始日期" }]}
+        >
+          <RangePicker />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="教学周"
+          name="week"
+          rules={[{ required: true, message: "请选择起始日期" }]}
+        >
+          <Checkbox.Group style={{ width: '100%' }} onChange={onWeekChange}>
+            <Row>
+              <Col span={8}>
+                <Checkbox value="mon">周一</Checkbox>
+              </Col>
+              <Col span={8}>
+                <Checkbox value="tues">周二</Checkbox>
+              </Col>
+              <Col span={8}>
+                <Checkbox value="wed">周三</Checkbox>
+              </Col>
+              <Col span={8}>
+                <Checkbox value="thurs">周四</Checkbox>
+              </Col>
+              <Col span={8}>
+                <Checkbox value="fri">周五</Checkbox>
+              </Col>
+            </Row>
+          </Checkbox.Group>
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="时间"
+          name="time"
+          rules={[{ required: true, message: "请选择起始日期" }]}
+        >
+          <TimeRangePicker picker="time" showSecond={false} />
         </FormItem>
       </Form>
     </Modal>

@@ -16,8 +16,8 @@ const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
     await addRole({
-      name: fields.name,
-      auth: fields.auth
+      roleName: fields.roleName,
+      description: fields.description
     });
     hide();
     message.success('添加成功');
@@ -37,9 +37,9 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
     await updateRole({
-      name: fields.name,
-      auth: fields.auth,
-      key: fields.key,
+      roleName: fields.roleName,
+      description: fields.description,
+      roleId: fields.roleId,
     });
     hide();
 
@@ -61,7 +61,7 @@ const handleRemove = async (selectedRows: SystemRole[]) => {
   if (!selectedRows) return true;
   try {
     await removeRole({
-      key: selectedRows.map((row) => row.key),
+      roleId: selectedRows.map((row) => row.roleId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -78,7 +78,7 @@ const handleRemoveItem = async (selectedRow: SystemRole) => {
   if (!selectedRow) return true;
   try {
     await removeRole({
-      key: selectedRow.key
+      roleId: selectedRow.roleId
     });
     hide();
     message.success('删除成功');
@@ -98,11 +98,11 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<SystemRole>[] = [
     {
       title: '角色名',
-      dataIndex: 'name',
+      dataIndex: 'roleName',
     },
     {
       title: '权限',
-      dataIndex: 'auth',
+      dataIndex: 'description',
     },
     {
       title: '操作',

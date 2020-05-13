@@ -16,8 +16,8 @@ const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
     await addSystemCollage({
-      name: fields.name,
-      desc: fields.desc
+      collegeName: fields.collegeName,
+      collegeDesc: fields.collegeDesc,
     });
     hide();
     message.success('添加成功');
@@ -37,9 +37,9 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
     await updateSystemCollage({
-      key: fields.key,
-      name: fields.name,
-      desc: fields.desc
+      collegeId: fields.collegeId,
+      collegeName: fields.collegeName,
+      collegeDesc: fields.collegeDesc,
     });
     hide();
 
@@ -61,7 +61,7 @@ const handleRemove = async (selectedRows: SystemCollage[]) => {
   if (!selectedRows) return true;
   try {
     await removeSystemCollage({
-      key: selectedRows.map((row) => row.key),
+      collegeId: selectedRows.map((row) => row.collegeId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -78,7 +78,7 @@ const handleRemoveItem = async (selectedRow: SystemCollage) => {
   if (!selectedRow) return true;
   try {
     await removeSystemCollage({
-      key: selectedRow.key
+      collegeId: selectedRow.collegeId
     });
     hide();
     message.success('删除成功');
@@ -97,13 +97,12 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<SystemCollage>[] = [
     {
-      title: '用户名',
-      dataIndex: 'name',
+      title: '学院名',
+      dataIndex: 'collegeName',
     },
     {
       title: '描述',
-      dataIndex: 'desc',
-      sorter: true,
+      dataIndex: 'collegeName',
     },
     {
       title: '操作',

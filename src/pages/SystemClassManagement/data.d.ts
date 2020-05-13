@@ -15,9 +15,10 @@ export interface TableListItem {
 }
 
 export interface SystemClass {
-    key?: number;
-    name?: string;
-    collage?: string;
+    classId?: number;
+    classNumber?: string;
+    collegeId?: string;
+    collegeName?: string;
     pageSize?: number;
     currentPage?: number;
 }

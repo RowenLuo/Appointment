@@ -6,17 +6,16 @@ import { TableListItem, TableListParams } from './data.d';
 // mock tableListDataSource
 let tableListDataSource: TableListItem[] = [];
 let task1 = {
-  key: 0,
-  name: `光电学院`,
+  collageId: 0,
+  collageName: `光电学院`,
 }
 let task2 = {
-  key: 1,
-  name: `计算机学院`,
+  collageId: 1,
+  collageName: `计算机学院`,
 }
 let task3 = {
-  key: 2,
-  name: `材化学院`,
-  owner: '曲丽丽',
+  collageId: 2,
+  collageName: `材化学院`,
 }
 
 tableListDataSource.push(task1);
@@ -138,6 +137,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/admin/collage/list': getRule,
+  'GET /api/admin/college/list': getRule,
   'POST /api/rule': postRule,
 };

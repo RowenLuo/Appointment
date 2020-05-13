@@ -43,10 +43,10 @@ export interface DefaultSettings {
 }
 
 export default {
-  "navTheme": "light",
-  "primaryColor": "#FAAD14",
+  "navTheme": "dark",
+  "primaryColor": "#1890ff",
   "layout": "sidemenu",
-  "contentWidth": "Fixed",
+  "contentWidth": "Fluid",
   "fixedHeader": false,
   "autoHideHeader": false,
   "fixSiderbar": false,

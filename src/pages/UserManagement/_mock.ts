@@ -7,25 +7,28 @@ import { TableListItem, TableListParams, SystemUser } from './data.d';
 let tableListDataSource: SystemUser[] = [];
 let task1 = {
   key: 0,
+  phone: 1322333223,
   name: `王老师`,
-  collage: '计算机学院',
-  role: '老师',
+  collegeName: '计算机学院',
+  roleName: '老师',
   createDate: new Date('2020/4/1'),
 }
 
 let task2 = {
   key: 1,
+  phone: 1322333223,
   name: `王老师`,
-  collage: '计算机学院',
-  role: '老师',
+  collegeName: '计算机学院',
+  roleName: '老师',
   createDate: new Date('2020/4/1'),
 }
 
 let task3 = {
   key: 2,
+  phone: 1322333223,
   name: `王老师`,
-  collage: '计算机学院',
-  role: '老师',
+  collegeName: '计算机学院',
+  roleName: '老师',
   createDate: new Date('2020/4/1'),
 }
 
@@ -98,7 +101,7 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
   }
 
   const body = (b && b.body) || req.body;
-  const { method, key, name, collage, role } = body;
+  const { method, key, name, college, role } = body;
 
   switch (method) {
     /* eslint no-case-declarations:0 */
@@ -110,14 +113,14 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
       tableListDataSource.unshift({
         key: i,
         name: name,
-        collage: collage,
+        college: college,
         role: role
       });
       break;
     case 'update':
       tableListDataSource = tableListDataSource.map((item) => {
         if (item.key === key) {
-          return { ...item, name, role, collage };
+          return { ...item, name, role, college };
         }
         return item;
       });

@@ -16,15 +16,18 @@ export interface TableListItem {
 
 export interface SystemUser {
   key?: number;
+  phone?: string;
   name?: string;
-  collage?: string;
-  role?: string;
+  collegeId?: string;
+  collegeName?: string;
+  roleId?: string;
+  roleName?: string;
   createDate?: string;
 }
 
 export interface SystemSearchParams {
   name?: string;
-  collage?: string;
+  college?: string;
   role?: string;
   pageSize?: number;
   currentPage?: number;

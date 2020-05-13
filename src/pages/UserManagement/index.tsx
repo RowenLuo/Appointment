@@ -18,8 +18,8 @@ const handleAdd = async (fields: FormValueType) => {
   try {
     await addSystemUser({
       name: fields.name,
-      collage: fields.collage,
-      role: fields.role
+      collegeId: fields.collegeId,
+      roleId: fields.roleId
     });
     hide();
     message.success('添加成功');
@@ -40,9 +40,10 @@ const handleUpdate = async (fields: FormValueType) => {
   try {
     await updateSystemUser({
       key: fields.key,
+      phone: fields.phone,
       name: fields.name,
-      role: fields.role,
-      collage: fields.collage
+      roleId: fields.roleId,
+      collegeId: fields.collegeId
     });
     hide();
 
@@ -100,16 +101,20 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<SystemUser>[] = [
     {
+      title: '手机号',
+      dataIndex: 'phone',
+    },
+    {
       title: '用户名',
       dataIndex: 'name',
     },
     {
       title: '学院',
-      dataIndex: 'collage',
+      dataIndex: 'collegeName',
     },
     {
       title: '角色',
-      dataIndex: 'role',
+      dataIndex: 'roleName',
       sorter: true,
     },
     {

@@ -17,7 +17,7 @@ const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
     await addSystemJudge({
-      name: fields.name,
+      apiName: fields.apiName,
     });
     hide();
     message.success('添加成功');
@@ -37,8 +37,8 @@ const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
     await updateSystemJudge({
-      key: fields.key,
-      name: fields.name,
+      apiId: fields.apiId,
+      apiName: fields.apiName,
     });
     hide();
 
@@ -60,7 +60,7 @@ const handleRemove = async (selectedRows: SystemJudge[]) => {
   if (!selectedRows) return true;
   try {
     await removeSystemJudge({
-      key: selectedRows.map((row) => row.key),
+      apiId: selectedRows.map((row) => row.apiId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -77,7 +77,7 @@ const handleRemoveItem = async (selectedRow: SystemJudge) => {
   if (!selectedRow) return true;
   try {
     await removeSystemJudge({
-      key: selectedRow.key
+      apiId: selectedRow.apiId
     });
     hide();
     message.success('删除成功');
@@ -97,7 +97,7 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<SystemJudge>[] = [
     {
       title: '指标名称',
-      dataIndex: 'name',
+      dataIndex: 'apiName',
     },
     {
       title: '操作',

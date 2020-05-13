@@ -7,7 +7,7 @@ export async function queryRole(params?: SystemRole) {
   });
 }
 
-export async function removeRole(params: { key: any }) {
+export async function removeRole(params: { roleId: any }) {
   return request('/api/admin/role', {
     method: 'DELETE',
     data: {

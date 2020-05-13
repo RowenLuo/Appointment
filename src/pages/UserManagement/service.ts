@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 import { SystemSearchParams, SystemUser } from './data.d';
 
-export async function querySystemUsers(params?: SystemSearchParams) {
+export async function querySystemUsers(params?: SystemUser) {
   return request('/api/admin/user/list', {
     params,
   });
@@ -12,7 +12,6 @@ export async function addSystemUser(params: SystemUser) {
     method: 'POST',
     data: {
       ...params,
-      method: 'post',
     },
   });
 }
@@ -22,7 +21,6 @@ export async function updateSystemUser(params: SystemUser) {
     method: 'PATCH',
     data: {
       ...params,
-      method: 'update',
     },
   });
 }
@@ -32,7 +30,6 @@ export async function removeSystemUser(params: { key?: any }) {
     method: 'DELETE',
     data: {
       ...params,
-      method: 'delete',
     },
   });
 }

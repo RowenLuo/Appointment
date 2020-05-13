@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
-import { queryCollage } from '@/pages/CollageManagement/service'
+import { querySystemCollage } from '@/pages/CollageManagement/service'
 
 import { TableListItem, SystemClass } from '../data.d';
 
@@ -36,13 +36,13 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    name: props.values.name,
-    key: props.values.key,
-    collage: props.values.collage
+    classNumber: props.values.classNumber,
+    classId: props.values.classId,
+    collegeId: props.values.collegeId
   });
 
   const [form] = Form.useForm();
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -52,7 +52,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   } = props;
 
   const handleSearchCollage = async () => {
-    const data = await queryCollage();
+    const data = await querySystemCollage();
     setCollage(data.data);
   }
 
@@ -71,7 +71,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 15 }}
             label="班级名"
-            name="name"
+            name="classNumber"
             rules={[{ required: true }]}
           >
             <Input placeholder="请输入" />
@@ -80,7 +80,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 15 }}
             label="学院"
-            name="collage"
+            name="collegeId"
             rules={[{ required: true }]}
           >
             <Select 
@@ -88,8 +88,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             onFocus={handleSearchCollage}
             >
               {
-                collage.map((item, index) => (
-                  <Option key={index} value={item.key}>{item.name}</Option>
+                college.map((item, index) => (
+                  <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
                 ))
               }
             </Select>
@@ -128,8 +128,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          name: formVals.name,
-          collage: formVals.collage
+          classNumber: formVals.classNumber,
+          collegeName: formVals.collegeName
         }}
       >
         {renderContent()}

@@ -35,11 +35,11 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    name: props.values.name,
-    collage: props.values.collage,
-    class: props.values.class,
-    teacher: props.values.teacher,
-    key: props.values.key,
+    courseId: props.values.courseId,
+    courseName: props.values.courseName,
+    collegeId: props.values.collegeId,
+    classId: props.values.classId,
+    teacherId: props.values.teacherId,
     target: '0',
     template: '0',
     type: '1',
@@ -50,7 +50,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
 
   const [list, setList] = useState([]);
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
   const [user, setUser] = useState([]);
 
   const {
@@ -90,7 +90,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="课程名"
-          name="name"
+          name="courseName"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -99,7 +99,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="学院"
-          name="collage"
+          name="collegeName"
           rules={[{ required: true }]}
         >
           <Select 
@@ -108,7 +108,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           >
             {
               list.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+                <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
           </Select>
@@ -117,7 +117,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="班级"
-          name="class"
+          name="classId"
           rules={[{ required: true }]}
         >
           <Select 
@@ -125,8 +125,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearch}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.classId}>{item.className}</Option>
               ))
             }
           </Select>
@@ -135,7 +135,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="老师"
-          name="teacher"
+          name="teacherId"
           rules={[{ required: true }]}
         >
           <Select 
@@ -143,8 +143,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearchUser}
           >
             {
-              collage.map((item, index) => (
-                <Option key={index} value={item.key}>{item.name}</Option>
+              college.map((item, index) => (
+                <Option key={index} value={item.teacherId}>{item.teacherName}</Option>
               ))
             }
           </Select>
@@ -183,10 +183,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          name: formVals.name,
-          collage: formVals.collage,
-          class: formVals.class,
-          teacher: formVals.teacher
+          courseName: formVals.courseName,
+          collegeName: formVals.collegeName,
+          className: formVals.className,
+          teacherName: formVals.teacherName
         }}
       >
         {renderContent()}

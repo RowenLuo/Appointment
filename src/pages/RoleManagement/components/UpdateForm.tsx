@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, DatePicker, Input, Modal, Radio, Select, Steps } from 'antd';
 
-import { Role, SystemRole } from '../data.d';
+import { SystemRole } from '../data.d';
 
 export interface FormValueType extends Partial<SystemRole> {
   target?: string;
@@ -35,9 +35,9 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    name: props.values.name,
-    auth: props.values.auth,
-    key: props.values.key,
+    roleName: props.values.roleName,
+    description: props.values.description,
+    roleId: props.values.roleId,
     target: '0',
     template: '0',
     type: '1',
@@ -66,7 +66,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
       return (
         <>
           <FormItem 
-            name="name" 
+            name="roleName" 
             label="角色名"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 15 }}
@@ -74,7 +74,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
             <Input placeholder="请输入" />
           </FormItem>
           <FormItem 
-            name="auth" 
+            name="description" 
             label="权限"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 15 }}
@@ -115,8 +115,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          name: formVals.name,
-          auth: formVals.auth,
+          roleName: formVals.roleName,
+          description: formVals.description,
         }}
       >
         {renderContent()}

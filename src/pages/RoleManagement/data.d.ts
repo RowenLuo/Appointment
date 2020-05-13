@@ -15,9 +15,9 @@ export interface TableListItem {
 }
 
 export interface SystemRole {
-  key?: number;
-  name?: string;
-  auth?: string;
+  roleId?: number;
+  roleName?: string;
+  description?: string;
   pageSize?: number;
   currentPage?: number;
 }

@@ -5,7 +5,7 @@ const FormItem = Form.Item;
 
 interface CreateFormProps {
   modalVisible: boolean;
-  onSubmit: (fieldsValue: { name: string }) => void;
+  onSubmit: (fieldsValue: { apiName: string }) => void;
   onCancel: () => void;
 }
 
@@ -33,7 +33,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="指标名称"
-          name="name"
+          name="apiName"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />

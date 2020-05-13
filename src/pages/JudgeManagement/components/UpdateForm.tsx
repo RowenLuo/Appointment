@@ -32,8 +32,8 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    name: props.values.name,
-    key: props.values.key,
+    apiName: props.values.apiName,
+    apiId: props.values.apiId,
     target: '0',
     template: '0',
     type: '1',
@@ -44,7 +44,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [form] = Form.useForm();
 
   const [list, setList] = useState([]);
-  const [collage, setCollage] = useState([]);
+  const [college, setCollage] = useState([]);
 
   const {
     onSubmit: handleUpdate,
@@ -68,7 +68,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="指标名称"
-          name="name"
+          name="apiName"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -107,7 +107,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          name: formVals.name,
+          apiName: formVals.apiName,
         }}
       >
         {renderContent()}

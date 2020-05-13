@@ -20,6 +20,23 @@ export interface TableListPagination {
   current: number;
 }
 
+export interface SystemAppoinment {
+  apponitmentId?: number;
+  courseId?: number;
+  courseName?: string;
+  teacherId?: number;
+  teacherName?: string;
+  startDate?: Date;
+  endDate?: Date;
+  week?: string;
+  startTime?: string;
+  endTime?: string;
+  courseStatus?: number;
+  superviseId?: number;
+  superviseName?: string;
+  appointmentStatus?: number;
+}
+
 export interface TableListData {
   list: TableListItem[];
   pagination: Partial<TableListPagination>;

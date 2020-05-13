@@ -7,7 +7,7 @@ export async function querySystemClass(params?: SystemClass) {
   });
 }
 
-export async function removeSystemClass(params: { key: any }) {
+export async function removeSystemClass(params: { classId: any }) {
   return request('/api/admin/class', {
     method: 'DELETE',
     data: {

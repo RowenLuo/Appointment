@@ -21,8 +21,8 @@ export interface TableListPagination {
 }
 
 export interface SystemJudge {
-  key?: number;
-  name?: string;
+  apiId?: number;
+  apiName?: string;
   pageSize?: number;
   current?: number;
 }

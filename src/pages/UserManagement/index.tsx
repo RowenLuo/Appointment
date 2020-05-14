@@ -101,10 +101,6 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<SystemUser>[] = [
     {
-      title: '手机号',
-      dataIndex: 'phone',
-    },
-    {
       title: '用户名',
       dataIndex: 'name',
     },

@@ -7,23 +7,16 @@ import { TableListItem, TableListParams } from './data.d';
 let tableListDataSource: TableListItem[] = [];
 
 let task1: any = {
-  key: 0,
-  name: `教学氛围`,
-};
-
-let task2: any = {
-  key: 0,
-  name: `教学成果`,
-};
-
-let task3: any = {
-  key: 0,
-  name: `教学方法`,
+  kpiId: 0,
+  kpiType: `教学氛围`,
+  kpi: [
+    {kpiName: "1"},
+    {kpiName: "3"},
+    {kpiName: "1"},
+  ],
 };
 
 tableListDataSource.push(task1);
-tableListDataSource.push(task2);
-tableListDataSource.push(task3);
 
 function getRule(req: Request, res: Response, u: string) {
   let url = u;
@@ -140,6 +133,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule_admin_judge': getRule,
-  'POST /api/rule': postRule,
+  'GET /api/admin/kpi/list': getRule,
+  'POST /api/admin/kpi': postRule,
 };

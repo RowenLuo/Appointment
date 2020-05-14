@@ -82,15 +82,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
-          label="手机号"
-          name="phone"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="请输入" />
-        </FormItem>
-        <FormItem
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 15 }}
           label="用户名"
           name="name"
           rules={[{ required: true }]}
@@ -167,7 +158,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          phone: formVals.phone,
           name: formVals.name,
           roleName: formVals.roleName,
           collegeName: formVals.collegeName

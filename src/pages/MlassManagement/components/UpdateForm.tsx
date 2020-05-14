@@ -72,7 +72,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
 
   const handleSearchUser = async () => {
     const data = await querySystemUsers();
-    setCollage(data.data);
+    setUser(data.data);
   }
 
   const handleNext = async () => {
@@ -107,7 +107,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearchCollage}
           >
             {
-              list.map((item, index) => (
+              college.map((item, index) => (
                 <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
@@ -125,8 +125,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearch}
           >
             {
-              college.map((item, index) => (
-                <Option key={index} value={item.classId}>{item.className}</Option>
+              list.map((item, index) => (
+                <Option key={index} value={item.classId}>{item.classNumber}</Option>
               ))
             }
           </Select>
@@ -143,8 +143,8 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
            onFocus={handleSearchUser}
           >
             {
-              college.map((item, index) => (
-                <Option key={index} value={item.teacherId}>{item.teacherName}</Option>
+              user.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
               ))
             }
           </Select>
@@ -185,7 +185,7 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           frequency: formVals.frequency,
           courseName: formVals.courseName,
           collegeName: formVals.collegeName,
-          className: formVals.className,
+          classNumber: formVals.classNumber,
           teacherName: formVals.teacherName
         }}
       >

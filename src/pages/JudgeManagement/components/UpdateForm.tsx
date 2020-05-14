@@ -5,6 +5,9 @@ import { SystemJudge } from '../data.d';
 
 export interface FormValueType extends Partial<SystemJudge> {
   target?: string;
+  kpi1?: string;
+  kpi2?: string;
+  kpi3?: string;
   template?: string;
   type?: string;
   time?: string;
@@ -32,8 +35,11 @@ const formLayout = {
 
 const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
-    apiName: props.values.apiName,
-    apiId: props.values.apiId,
+    kpiType: props.values.kpiType,
+    kpiId: props.values.kpiId,
+    kpi1: props.values.kpi[0].kpiName,
+    kpi2: props.values.kpi[1].kpiName,
+    kpi3: props.values.kpi[2].kpiName,
     target: '0',
     template: '0',
     type: '1',
@@ -68,7 +74,34 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
           label="指标名称"
-          name="apiName"
+          name="kpiType"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="指标项1"
+          name="kpi1"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="指标项2"
+          name="kpi2"
+          rules={[{ required: true }]}
+        >
+          <Input placeholder="请输入" />
+        </FormItem>
+        <FormItem
+          labelCol={{ span: 5 }}
+          wrapperCol={{ span: 15 }}
+          label="指标项3"
+          name="kpi3"
           rules={[{ required: true }]}
         >
           <Input placeholder="请输入" />
@@ -107,7 +140,10 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           template: formVals.template,
           type: formVals.type,
           frequency: formVals.frequency,
-          apiName: formVals.apiName,
+          kpiType: formVals.kpiType,
+          kpi1: formVals.kpi1,
+          kpi2: formVals.kpi2,
+          kpi3: formVals.kpi3
         }}
       >
         {renderContent()}

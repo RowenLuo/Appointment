@@ -122,6 +122,18 @@ const TableList: React.FC<{}> = () => {
       hideInSearch: true
     },
     {
+      title: '周',
+      dataIndex: 'week',
+      sorter: true,
+      hideInSearch: true
+    },
+    {
+      title: '上课时间',
+      dataIndex: 'time',
+      sorter: true,
+      hideInSearch: true
+    },
+    {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Modal, Select, Checkbox, Row, Col, DatePicker, TimePicker } from 'antd';
 import { querySystemClass } from '@/pages/SystemClassManagement/service';
 import { querySystemCollage } from '@/pages/CollageManagement/service';
+import { querySystemUsers } from '@/pages/UserManagement/service';
 
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
@@ -19,6 +20,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const [list, setList] = useState([]);
   const [college, setCollage] = useState([]);
+  const [teacher, setTeacher] = useState([]);
 
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
   const okHandle = async () => {
@@ -29,7 +31,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
 
   const handleSearch = async () => {
     const data = await querySystemClass();
-    setList(data.datj);
+    setList(data.data);
   }
 
   const handleSearchCollege = async () => {
@@ -37,15 +39,9 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
     setCollage(data.data);
   }
 
-  const onWeekChange = (checkValue) => {
-  }
-
-  const onMonday1Change = (value) => {
-    form.setFieldsValue({ weekTime: "周一: lalala" });
-  }
-
-  const onMonday2Change = (value) => {
-    form.setFieldsValue({ weekTime: "周一: lalala" });
+  const handleSearchTeacher = async () => {
+    const data = await querySystemUsers();
+    setTeacher(data.data);
   }
 
   const onFinish = (value) => {
@@ -85,7 +81,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearchCollege}
           >
             {
-              list.map((item, index) => (
+              college.map((item, index) => (
                 <Option key={index} value={item.collegeId}>{item.collegeName}</Option>
               ))
             }
@@ -104,8 +100,8 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
            onFocus={handleSearch}
           >
             {
-              college.map((item, index) => (
-                <Option key={index} value={item.classId}>{item.className}</Option>
+              list.map((item, index) => (
+                <Option key={index} value={item.classId}>{item.classNumber}</Option>
               ))
             }
           </Select>
@@ -120,11 +116,11 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           <Select 
            placeholder="请选择"
            filterOption={false}
-           onFocus={handleSearch}
+           onFocus={handleSearchTeacher}
           >
             {
-              college.map((item, index) => (
-                <Option key={index} value={item.teacherId}>{item.teacherName}</Option>
+              teacher.map((item, index) => (
+                <Option key={index} value={item.key}>{item.name}</Option>
               ))
             }
           </Select>
@@ -145,7 +141,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
           name="week"
           rules={[{ required: true, message: "请选择起始日期" }]}
         >
-          <Checkbox.Group style={{ width: '100%' }} onChange={onWeekChange}>
+          <Checkbox.Group style={{ width: '100%' }}>
             <Row>
               <Col span={8}>
                 <Checkbox value="mon">周一</Checkbox>

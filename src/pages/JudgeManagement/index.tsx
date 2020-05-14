@@ -16,8 +16,13 @@ import ColumnGroup from 'antd/es/table/ColumnGroup';
 const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
+    let kpivalue: { kpiName: string; }[] = [];
+    kpivalue.push({ kpiName: fields.kpi1 });
+    kpivalue.push({ kpiName: fields.kpi2 });
+    kpivalue.push({ kpiName: fields.kpi3 });
     await addSystemJudge({
-      apiName: fields.apiName,
+      kpiType: fields.kpiType,
+      kpi: kpivalue
     });
     hide();
     message.success('添加成功');
@@ -36,9 +41,14 @@ const handleAdd = async (fields: FormValueType) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
+    let kpivalue: { kpiName: string; }[] = [];
+    kpivalue.push({ kpiName: fields.kpi1 });
+    kpivalue.push({ kpiName: fields.kpi2 });
+    kpivalue.push({ kpiName: fields.kpi3 });
     await updateSystemJudge({
-      apiId: fields.apiId,
-      apiName: fields.apiName,
+      kpiId: fields.kpiId,
+      kpiType: fields.kpiType,
+      kpi: kpivalue
     });
     hide();
 
@@ -60,7 +70,7 @@ const handleRemove = async (selectedRows: SystemJudge[]) => {
   if (!selectedRows) return true;
   try {
     await removeSystemJudge({
-      apiId: selectedRows.map((row) => row.apiId),
+      kpiId: selectedRows.map((row) => row.kpiId),
     });
     hide();
     message.success('删除成功，即将刷新');
@@ -77,7 +87,7 @@ const handleRemoveItem = async (selectedRow: SystemJudge) => {
   if (!selectedRow) return true;
   try {
     await removeSystemJudge({
-      apiId: selectedRow.apiId
+      kpiId: selectedRow.kpiId
     });
     hide();
     message.success('删除成功');
@@ -89,6 +99,17 @@ const handleRemoveItem = async (selectedRow: SystemJudge) => {
   }
 };
 
+const changeValue = async (params) => {
+  let res = await querySystemJudge(params);
+  const { data } = res;
+  data.forEach(x => {
+    x["kpi1"] = x.kpi[0].kpiName;
+    x["kpi2"] = x.kpi[1].kpiName;
+    x["kpi3"] = x.kpi[2].kpiName;
+  });
+  return res;
+}
+
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
@@ -97,7 +118,19 @@ const TableList: React.FC<{}> = () => {
   const columns: ProColumns<SystemJudge>[] = [
     {
       title: '指标名称',
-      dataIndex: 'apiName',
+      dataIndex: 'kpiType',
+    },
+    {
+      title: '指标一',
+      dataIndex: 'kpi1',
+    },
+    {
+      title: '指标二',
+      dataIndex: 'kpi2',
+    },
+    {
+      title: '指标一',
+      dataIndex: 'kpi3',
     },
     {
       title: '操作',
@@ -160,7 +193,7 @@ const TableList: React.FC<{}> = () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => querySystemJudge(params)}
+        request={(params) => changeValue(params)}
         columns={columns}
         rowSelection={{}}
       />

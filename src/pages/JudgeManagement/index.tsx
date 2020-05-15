@@ -16,13 +16,11 @@ import ColumnGroup from 'antd/es/table/ColumnGroup';
 const handleAdd = async (fields: FormValueType) => {
   const hide = message.loading('正在添加');
   try {
-    let kpivalue: { kpiName: string; }[] = [];
-    kpivalue.push({ kpiName: fields.kpi1 });
-    kpivalue.push({ kpiName: fields.kpi2 });
-    kpivalue.push({ kpiName: fields.kpi3 });
     await addSystemJudge({
       kpiType: fields.kpiType,
-      kpi: kpivalue
+      kpi1: fields.kpi1,
+      kpi2: fields.kpi2,
+      kpi3: fields.kpi3,
     });
     hide();
     message.success('添加成功');
@@ -41,14 +39,12 @@ const handleAdd = async (fields: FormValueType) => {
 const handleUpdate = async (fields: FormValueType) => {
   const hide = message.loading('正在更新');
   try {
-    let kpivalue: { kpiName: string; }[] = [];
-    kpivalue.push({ kpiName: fields.kpi1 });
-    kpivalue.push({ kpiName: fields.kpi2 });
-    kpivalue.push({ kpiName: fields.kpi3 });
     await updateSystemJudge({
       kpiId: fields.kpiId,
       kpiType: fields.kpiType,
-      kpi: kpivalue
+      kpi1: fields.kpi1,
+      kpi2: fields.kpi2,
+      kpi3: fields.kpi3,
     });
     hide();
 
@@ -98,17 +94,6 @@ const handleRemoveItem = async (selectedRow: SystemJudge) => {
     return false;
   }
 };
-
-const changeValue = async (params) => {
-  let res = await querySystemJudge(params);
-  const { data } = res;
-  data.forEach(x => {
-    x["kpi1"] = x.kpi[0].kpiName;
-    x["kpi2"] = x.kpi[1].kpiName;
-    x["kpi3"] = x.kpi[2].kpiName;
-  });
-  return res;
-}
 
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
@@ -193,7 +178,7 @@ const TableList: React.FC<{}> = () => {
             </Dropdown>
           ),
         ]}
-        request={(params) => changeValue(params)}
+        request={(params) => querySystemJudge(params)}
         columns={columns}
         rowSelection={{}}
       />

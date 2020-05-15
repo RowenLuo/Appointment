@@ -23,7 +23,10 @@ export interface TableListPagination {
 export interface SystemJudge {
   kpiId?: number;
   kpiType?: string;
-  kpi: { kpiName: string; }[]
+  //kpi: { kpiName: string; }[]
+  kpi1?: string;
+  kpi2?: string;
+  kpi3?: string;
   kpiOpen?: boolean;
   pageSize?: number;
   currentPage?: number;

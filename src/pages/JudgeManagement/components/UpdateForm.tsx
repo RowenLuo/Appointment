@@ -5,9 +5,6 @@ import { SystemJudge } from '../data.d';
 
 export interface FormValueType extends Partial<SystemJudge> {
   target?: string;
-  kpi1?: string;
-  kpi2?: string;
-  kpi3?: string;
   template?: string;
   type?: string;
   time?: string;
@@ -37,9 +34,9 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
   const [formVals, setFormVals] = useState<FormValueType>({
     kpiType: props.values.kpiType,
     kpiId: props.values.kpiId,
-    kpi1: props.values.kpi[0].kpiName,
-    kpi2: props.values.kpi[1].kpiName,
-    kpi3: props.values.kpi[2].kpiName,
+    kpi1: props.values.kpi1,
+    kpi2: props.values.kpi2,
+    kpi3: props.values.kpi3,
     target: '0',
     template: '0',
     type: '1',
